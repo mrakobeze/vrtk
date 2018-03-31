@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
 	spec.authors = ['MRAKOBEZE']
 	spec.email   = 'mrakobeze@pm.me'
 
-	spec.summary  = %q{Video Releasers TOolKit is a bunch of tools needed to make screenshots, previews and more form videos.}
 	spec.homepage = 'https://github.com/mrakobeze/vrtk'
 	spec.license  = 'MIT'
 
