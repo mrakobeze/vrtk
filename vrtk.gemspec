@@ -19,4 +19,6 @@ Gem::Specification.new do |spec|
 	spec.executables   = ['vrtk']
 	spec.require_paths = ['src']
 
+	spec.add_development_dependency 'bundler'
+	spec.add_development_dependency 'rake'
 end
