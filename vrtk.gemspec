@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
 	spec.files = `git ls-files`.split(/[\r\n]+/).map(&:strip)
 
 	spec.bindir        = 'bin'
-	spec.executables   = spec.files.grep(/^bin/) { |f| File.basename(f) }
+	spec.executables   = ['vrtk']
 	spec.require_paths = ['src']
 
 end
