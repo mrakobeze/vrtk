@@ -1,9 +1,8 @@
-require 'bundler'
-
 require_relative '../../vrtk'
 require_relative '../utils/utils'
 
-Bundler.require :video_clipper
+require 'ostruct'
+require 'logger'
 
 module VRTK::Clipper
 
@@ -11,6 +10,8 @@ module VRTK::Clipper
 	end
 
 	class FontFinder
+
+		include VRTK
 
 		DEFAULT_DIRS = ['.', File.dirname(__FILE__)]
 

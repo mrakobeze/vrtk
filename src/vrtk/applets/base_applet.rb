@@ -2,7 +2,9 @@ require 'bundler'
 
 require_relative '../../vrtk'
 
-Bundler.require :applets
+require 'ostruct'
+require 'optparse'
+require 'logger'
 
 module VRTK::Applets
 	class BaseApplet
@@ -10,9 +12,9 @@ module VRTK::Applets
 			@argv = argv
 
 			@applet = {
-				name: name,
-				id:   id,
-				desc: desc,
+				name: self.class.name,
+				id:   self.class.id,
+				desc: self.class.desc,
 
 			}
 

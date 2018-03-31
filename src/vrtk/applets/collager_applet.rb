@@ -4,23 +4,28 @@ require_relative '../../vrtk'
 require_relative 'base_applet'
 require_relative '../collager/collager'
 
-Bundler.require :applets
+require 'ostruct'
+require 'optparse'
+require 'logger'
 
 module VRTK::Applets
 
 	class CollagerApplet < BaseApplet
 
+		include VRTK
 		include VRTK::Collage
 
 		WILDCARDS = "(wildcards allowed, '%' instead of '*', '\#' instead of '?')"
 
 		def init_options
 
-			@options = OpenStruct.new({})
+			@options = OpenStruct.new({
+				                          files: []
+			                          })
 
 			OptionParser.new do |opts|
 
-				opts.banner = "-== #{name} ==-\n#{desc}\nUsage: #{$PROGRAM_NAME} #{id} [options]"
+				opts.banner = "-== #{self.class.name} ==-\n#{self.class.desc}\nUsage: #{File.basename($PROGRAM_NAME)} #{self.class.id} [options]"
 
 				opts.on('-?', '--help', 'This message') do |v|
 					puts opts
@@ -63,10 +68,10 @@ module VRTK::Applets
 
 		def run
 
-			raise CollagerError, 'no input file specified!' unless @options.input
+			raise CollagerError, 'no input file specified!' unless @options.files
 
 			VRTK::Collager.new(
-				input_file:    @options.files,
+				input_files:    @options.files,
 				output_file:   @options.output,
 				tile_ratio:    @options.ratio,
 				collage_width: @options.width
@@ -86,4 +91,5 @@ module VRTK::Applets
 			'collager'
 		end
 	end
+
 end

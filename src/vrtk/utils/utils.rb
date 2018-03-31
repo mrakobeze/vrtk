@@ -1,8 +1,4 @@
-require 'bundler'
-
 require_relative '../../vrtk'
-
-Bundler.require :utils
 
 module VRTK::Utils
 	def self.to_wpath(upath)

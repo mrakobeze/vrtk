@@ -1,9 +1,9 @@
-require 'bundler'
-
 require_relative '../../vrtk'
 require_relative '../utils/utils'
 
-Bundler.require :collager
+require 'ostruct'
+require 'logger'
+require 'mini_magick'
 
 module VRTK
 

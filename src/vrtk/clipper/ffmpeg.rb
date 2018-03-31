@@ -1,9 +1,8 @@
-require 'bundler'
-
 require_relative '../../vrtk'
 require_relative '../utils/utils'
 
-Bundler.require :ffmpeg
+require 'ostruct'
+require 'logger'
 
 module VRTK::Clipper
 
