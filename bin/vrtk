@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'bundler/setup'
-
 require_relative '../src/vrtk'
 require_relative '../src/vrtk/app'
 
