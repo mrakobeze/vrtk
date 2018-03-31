@@ -13,13 +13,6 @@ Gem::Specification.new do |spec|
 	spec.homepage = 'https://github.com/mrakobeze/vrtk'
 	spec.license  = 'MIT'
 
-	if spec.respond_to?(:metadata)
-		spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-	else
-		raise 'RubyGems 2.0 or newer is required to protect against ' \
-      'public gem pushes.'
-	end
-
 	spec.files = `git ls-files`.split(/[\r\n]+/).map(&:strip)
 
 	spec.bindir        = 'bin'
