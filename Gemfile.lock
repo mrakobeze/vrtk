@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    vrtk (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.8.1)
+    mini_magick (4.8.0)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  colorize
+  mini_magick
+  vrtk!
+
+BUNDLED WITH
+   1.16.1
