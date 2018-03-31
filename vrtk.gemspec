@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
 	spec.authors = ['MRAKOBEZE']
 	spec.email   = 'mrakobeze@pm.me'
 
+	spec.summary = ''
 	spec.homepage = 'https://github.com/mrakobeze/vrtk'
 	spec.license  = 'MIT'
 
