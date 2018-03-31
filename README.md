@@ -10,11 +10,15 @@ Currently it can:
 
 #### Windows
 
-Install Ruby 2.4 from [RubyInstaller](http://rubyinstaller.org)
+Install Ruby 2.4 from [RubyInstaller](http://rubyinstaller.org). 
+Also, download [FFMpeg](http://ffmpeg.org/download.html) and [ImageMagick](http://imagemagick.org/script/download.php#windows).
+FFMpeg from ImageMagick is not suitable since it doesn't have `ffprobe` program.
 
 Or install it yourself as:
 
     $ gem install vrtk
+
+If install succeeds, 
 
 ## Usage
 

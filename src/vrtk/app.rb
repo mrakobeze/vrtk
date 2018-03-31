@@ -1,6 +1,7 @@
 require 'bundler'
 
 require_relative 'config'
+require_relative 'version'
 
 Bundler.require :app
 
@@ -37,24 +38,31 @@ module VRTK
 
 		def opt_parse
 			OptionParser.new do |opts|
-
-				opts.banner = <<END
--== Video Releaser's toolkit ==- 
-Usage: #{$PROGRAM_NAME} <applet> 
-Applets:
-#{get_applets}
-Options:
-END
-
+				opts.banner = banner
 
 				opts.on('-?', '--help', 'See this help') do |_|
 					puts opts
+					exit 0
+				end
+
+				opts.on('-v', '--version', 'Print version') do |_|
+					puts "VRTK #{VRTK::VERSION}"
 					exit 0
 				end
 			end.parse!
 		end
 
 		private
+
+		def banner
+			<<END
+-== Video Releaser's toolkit ==- 
+Usage: #{$PROGRAM_NAME} <applet> 
+Applets:
+#{get_applets}
+Options:
+END
+		end
 
 		def no_applet
 			STDERR.print 'ERROR: '.colorize(:red)
@@ -66,9 +74,9 @@ END
 			text = []
 			VRTK::Config::APPLETS.each do |_, applet|
 				text << <<END
-    #{applet.id}
-	    #{applet.name}
-	    #{applet.desc}
+#{applet.id}
+				#{applet.name}
+				#{applet.desc}
 END
 			end
 
