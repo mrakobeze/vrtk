@@ -1,3 +1,5 @@
 module VRTK
-	VERSION = '0.0.1.3'
+	NAME = 'VRTK'
+	CODENAME = 'nuklear-blast'
+	VERSION = '0.0.2'
 end

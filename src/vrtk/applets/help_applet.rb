@@ -34,12 +34,7 @@ module VRTK::Applets
 
 		private
 		def banner
-			<<END
--== Video Releaser's toolkit ==- 
-Usage: #{File.basename($PROGRAM_NAME)} <applet> 
-Applets:
-#{get_applets}
-END
+			"-== Video Releaser's toolkit ==-\n Usage: #{File.basename($PROGRAM_NAME)} <applet>\n Applets:\n#{get_applets}"
 		end
 
 		def get_applets

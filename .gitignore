@@ -1,3 +1,5 @@
 t.mov
 .idea/
 pkg/
+dist/ffmpeg
+dist/magick

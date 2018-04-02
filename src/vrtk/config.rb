@@ -7,6 +7,7 @@ module VRTK::Config
 	APPLETS = {
 		'clipper'  => VRTK::Applets::ClipperApplet,
 		'collager' => VRTK::Applets::CollagerApplet,
-		'help'     => VRTK::Applets::HelpApplet
+		'help'     => VRTK::Applets::HelpApplet,
+		'version'     => VRTK::Applets::VersionApplet
 	}
 end
