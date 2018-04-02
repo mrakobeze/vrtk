@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vrtk (0.0.1.2)
+    vrtk (0.0.1.3)
 
 GEM
   remote: https://rubygems.org/

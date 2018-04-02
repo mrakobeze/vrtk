@@ -30,7 +30,14 @@ module VRTK::Clipper
 
 		# noinspection RubyScope
 		def self.resolve_ffmpeg_windows
-			search = (Utils.get_binpath + PREDEF_PATHS).map { |v| File.absolute_path v }
+			search = (Utils.get_binpath + PREDEF_PATHS)
+				         .map { |v| File.absolute_path Utils.to_upath(v) }
+
+			search.each do |v|
+				search << "#{v}/ffmpeg"
+				search << "#{v}/bin"
+				search << "#{v}/ffmpeg/bin"
+			end
 
 			mpeg  = nil
 			probe = nil
