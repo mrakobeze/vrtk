@@ -8,24 +8,43 @@ Currently it can:
 
 ## Installation
 
-#### Windows
+### Prebuilt binaries
+You can download prebuilt binaries from [Releases page](https://github.com/mrakobeze/vrtk).
 
-Install Ruby 2.4 from [RubyInstaller](http://rubyinstaller.org). 
-Also, download [FFMpeg](http://ffmpeg.org/download.html) and [ImageMagick](http://imagemagick.org/script/download.php#windows).
-FFMpeg from ImageMagick is not suitable since it doesn't have `ffprobe` program.
+### Building from source
+Unfortunately, we do support builds for Windows only. UNIX builds in progress. 
+#### Windows (x64 only)
 
-Or install it yourself as:
+ > You need Ruby 2.3 or newer to be in your path!
 
-    $ gem install vrtk
+Clone this repository:
 
-If install succeeds, check it by typing: 
-```bash
-$ vrtk help
-```
+    git clone https://github.com/mrakobeze/vrtk
+    cd vrtk
+
+Install deps with bundler:
+    
+    gem install bundler
+    bundler install
+
+Then run rake build task:
+
+    rake win32:build:folder             # Builds VRTK to pkg/win32 folder.
+    rake win32:build:zip                # Builds :folder and then packs to zipfile.
+    rake win32:build:inno               # Builds :folder and then creates an installator using INNO Setup Script.
+                                        # Script template can be found in 'dist/innosetup' directory.
+    rake win32:build:inno:generate      # Does not build anything, just generates INNO script from template 
+                                        # to be able for you to edit it as you need.
+
+That's definitely all.
 
 ## Usage
 
-TODO: This chapter is in progress
+Basic usage:
+
+    vrtk <applet> [applet options]
+    
+More information you can get if you run `vrtk help` and `vrtk <applet> --help` for any applet.
 
 ## Contributing
 
@@ -33,4 +52,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/mrakob
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This is licensed by Apache 2.0 License, which can be found in 'LICENSE.md'
