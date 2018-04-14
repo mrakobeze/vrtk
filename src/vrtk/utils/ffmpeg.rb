@@ -4,7 +4,7 @@ require_relative '../utils/utils'
 require 'ostruct'
 require 'logger'
 
-module VRTK::Clipper
+module VRTK::Utils
 
 	class FFMpegError < VRTK::VRTKError;
 	end

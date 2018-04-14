@@ -2,14 +2,14 @@ require 'bundler'
 
 require_relative '../../vrtk'
 require_relative 'base_applet'
-require_relative '../clipper/video_clipper'
+require_relative '../metalyzer/metalyzer'
 
 require 'ostruct'
 require 'optparse'
 require 'logger'
 
 module VRTK::Applets
-	class ClipperApplet < BaseApplet
+	class MetalyzerApplet < BaseApplet
 		def init_options
 
 			@options = OpenStruct.new({})
@@ -23,24 +23,17 @@ module VRTK::Applets
 					exit 0
 				end
 
-				opts.on('-i', '--input <file>', 'File to get previews from') do |v|
+				opts.on('-i', '--input <file>', 'File to get meta from') do |v|
 					@options.input = v
 				end
 
-				opts.on('-n', '--count <n>', 'Number of previews that will be generated (+-1)') do |v|
-					@options.count = v.to_i
+				opts.on('-f', '--format <file>', %q[Output format: 'text' for text output and 'image' for JPEG output.]) do |v|
+					raise VRTK::Metalyze::MetalyzerError, "Invalid format type '#{v}'" unless %w(image text).include? v.strip
+					@options.format_s = v
 				end
 
-				opts.on('-f', '--font-size <n>', 'Font size for timestamp. If not specified, 200 is used.') do |v|
-					@options.font_size = v.to_i
-				end
-
-				opts.on('-q', '--silent', 'Do not generate additional output') do |v|
-					@options.silent = v
-				end
-
-				opts.on('-o', '--output <dir>', 'Dir where generated files will be stored') do |v|
-					@options.output_dir = v
+				opts.on('-o', '--output <file>', 'Output file') do |v|
+					@options.output = v
 				end
 
 			end
@@ -48,7 +41,7 @@ module VRTK::Applets
 
 		def run
 
-			raise VRTK::Clipper::ClipperError, 'no input file specified!' unless @options.input
+			raise VRTK::Metalyze::MetalyzerError, 'no input file specified!' unless @options.input
 
 			logger = Logger.new(STDERR, level: (@options.silent ? Logger::Severity::FATAL : Logger::Severity::INFO))
 
@@ -57,12 +50,10 @@ module VRTK::Applets
 			end
 
 			begin
-				VRTK::VideoClipper.new(
+				VRTK::Metalyzer.new(
 					input_file:  @options.input,
-					clips_count: @options.count,
-					output_dir:  @options.output_dir,
-					font_size:   @options.font_size,
-					logger:      logger
+					output_file: @options.output,
+					format:      @options.format_s
 				)
 					.perform
 			rescue Exception => e
@@ -71,15 +62,15 @@ module VRTK::Applets
 		end
 
 		def self.name
-			'VideoClipper applet'
+			'Metalyzer applet'
 		end
 
 		def self.desc
-			'Extracts screenshots from video.'
+			'Extracts short metadata from video to text file or image.'
 		end
 
 		def self.id
-			'clipper'
+			'metal'
 		end
 	end
 end

@@ -1,5 +1,5 @@
-#define MyAppName "VRTK"
-#define MyAppVersion "0.0.2"
+#define MyAppName "VRTK %{codename}"
+#define MyAppVersion "%{version}"
 #define MyAppPublisher "MRAKOBEZE"
 #define BaseDir %{base_dir}
 #define ReleaseName %{rs_name}
@@ -14,7 +14,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={pf64}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile={#BaseDir}\LICENSE.md

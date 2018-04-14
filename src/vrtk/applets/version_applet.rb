@@ -1,6 +1,7 @@
 require 'bundler'
 
 require_relative '../../vrtk'
+require_relative '../version'
 require_relative 'base_applet'
 
 require 'ostruct'
@@ -11,12 +12,37 @@ module VRTK::Applets
 	class VersionApplet < BaseApplet
 
 		def init_options
+			@pa = false
 			OptionParser.new do |opts|
-
+				opts.on('-p', '--parsable', 'Generate parsable version output') do |v|
+					@pa = v
+				end
 			end
 		end
 
 		def run
+			if @pa
+				run_parse
+			else
+				run_human
+			end
+		end
+
+		# noinspection RubyStringKeysInHashInspection,RubyResolve
+		def run_parse
+			obj = {
+				'name'     => VRTK::NAME,
+				'version'  => VRTK::VERSION,
+				'codename' => VRTK::CODENAME,
+				'ocra'     => VRTK::OCRA_VERSION,
+				'ffmpeg'   => VRTK::FFMPEG_VERSION,
+				'magick'   => VRTK::MAGICK_VERSION,
+				'license'  => VRTK::LICENSE
+			}
+		end
+
+		# noinspection RubyResolve
+		def run_human
 			text = []
 
 			text << %[#{VRTK::NAME} #{VRTK::VERSION}]
@@ -25,6 +51,8 @@ module VRTK::Applets
 			text << %[FFMPEG version: #{VRTK::FFMPEG_VERSION || 'no ffmpeg'}]
 			text << %[ImageMagick version: #{VRTK::MAGICK_VERSION || 'no ImageMagick'}]
 
+			text << ''
+			text << %q[You can use '-p' option to get output in JSON.]
 			text << ''
 			text << ''
 

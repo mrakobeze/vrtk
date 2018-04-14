@@ -22,8 +22,6 @@ module VRTK
 
 		def __exec
 
-			applet_help = opt_parse
-
 			applet = ARGV.shift
 
 			no_applet unless applet
@@ -34,11 +32,6 @@ module VRTK
 
 			applet.run
 		end
-
-		def opt_parse
-
-		end
-
 		private
 
 

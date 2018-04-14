@@ -34,7 +34,7 @@ module VRTK::Applets
 
 		private
 		def banner
-			"-== Video Releaser's toolkit ==-\n Usage: #{File.basename($PROGRAM_NAME)} <applet>\n Applets:\n#{get_applets}"
+			"-==: Video Releaser's toolkit :==-\n Usage: #{File.basename($PROGRAM_NAME)} <applet>\n Applets:\n#{get_applets}"
 		end
 
 		def get_applets
@@ -42,7 +42,7 @@ module VRTK::Applets
 			VRTK::Config::APPLETS.each do |_, applet|
 				text << <<END
 #{applet.id}
-				#{applet.name}
+				-= #{applet.name} =-
 				#{applet.desc}
 END
 			end

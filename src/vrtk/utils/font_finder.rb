@@ -1,10 +1,11 @@
 require_relative '../../vrtk'
-require_relative '../utils/utils'
+require_relative 'utils'
+require_relative 'resource_finder'
 
 require 'ostruct'
 require 'logger'
 
-module VRTK::Clipper
+module VRTK::Utils
 
 	class FontFinderError < VRTK::VRTKError;
 	end
@@ -21,10 +22,24 @@ module VRTK::Clipper
 
 		def self.find_font(name)
 			if ENV['OS'].downcase.strip.start_with? 'windows'
-				find_font_windows name
+				begin
+					return find_font_windows name
+				rescue FontFinderError
+					return find_font_resources name
+				end
 			else
 				raise FontFinderError, "couldn't find font '#{name}'"
 			end
+		end
+
+		def self.find_font_resources(name)
+			res = ResourceFinder.find_resources "*#{name}*.ttf"
+			res += ResourceFinder.find_resources "fonts/*#{name}*.ttf"
+
+			raise FontFinderError, "couldn't find font '#{name}'" unless res.size > 0
+
+			(File.absolute_path(res[0]))
+				.gsub(':', '\\:')
 		end
 
 		private

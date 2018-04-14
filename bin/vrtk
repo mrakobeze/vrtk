@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'open3'
+unless defined?(Ocra).nil?
+	require 'open3'
+	require 'digest'
+	Digest('MD5')
+end
+
 require_relative '../src/vrtk'
 require_relative '../src/vrtk/app'
 

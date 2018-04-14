@@ -3,6 +3,7 @@ require_relative '../utils/utils'
 
 require 'ostruct'
 require 'logger'
+require 'ruby-progressbar'
 require 'mini_magick'
 
 module VRTK
@@ -29,6 +30,12 @@ module VRTK
 				                          dim:    tile_ratio|| [16, 9],
 				                          width:  collage_width || 1200
 			                          })
+
+			@bar = ProgressBar.create(
+				title:  "#{File.basename(@options.output)}".strip,
+				total:  1,
+				format: '%t [%b>%i] %c/%C'
+			)
 
 			@tmp_dir = Dir.mktmpdir %w(VRTK.Collager rb)
 		end
@@ -119,17 +126,21 @@ module VRTK
 			FileUtils.rm_rf @tmp_dir
 			FileUtils.mkdir @tmp_dir
 
+			@bar.total = @options.files.size
+
 			n_files = []
 
 			files.each do |f|
 				image = MiniMagick::Image.open(f)
 				resize_to_fill(width, height, image)
-				image.format "jpg"
+				image.format 'jpg'
 
 				xf = Digest::MD5.hexdigest f
 				xf = "#{@tmp_dir}/#{xf}.jpg"
 				image.write xf
 				n_files << xf
+
+				@bar.increment
 			end
 
 			n_files

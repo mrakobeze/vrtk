@@ -3,3 +3,5 @@ t.mov
 pkg/
 dist/ffmpeg
 dist/magick
+fastcode/
+rake/beta

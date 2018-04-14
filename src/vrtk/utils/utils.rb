@@ -19,4 +19,10 @@ module VRTK::Utils
 			.gsub('#', '?')
 			.gsub('\\', '/')
 	end
+
+	def self.clean_path(path)
+		path
+			.gsub(/['"]+/, '')
+			.gsub(/[\/\\]+/, '/')
+	end
 end

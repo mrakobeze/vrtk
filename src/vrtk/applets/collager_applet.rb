@@ -71,9 +71,10 @@ module VRTK::Applets
 			raise CollagerError, 'no input file specified!' unless @options.files
 
 			VRTK::Collager.new(
-				input_files:    @options.files,
+				input_files:   @options.files,
 				output_file:   @options.output,
 				tile_ratio:    @options.ratio,
+				file_limit:    @options.file_limit,
 				collage_width: @options.width
 			)
 				.perform

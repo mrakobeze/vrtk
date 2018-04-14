@@ -1,10 +1,13 @@
+require 'ruby-progressbar'
+
 require_relative 'rake/ziputil'
 require_relative 'rake/download'
 require_relative 'src/vrtk/version'
 
 BINDEPS = {
 	ffmpeg: %w(ffmpeg ffmpeg/ffprobe.exe ffmpeg/ffmpeg.exe),
-	magick: %w(magick magick/magick.exe magick/identify.bat magick/mogrify.bat magick/montage.bat)
+	magick: %w(magick magick/magick.exe magick/identify.bat magick/mogrify.bat magick/montage.bat),
+	mingw: %w(mingw mingw/libwinpthread-1.dll mingw/libgcc_s_seh-1.dll mingw/libstdc++-6.dll)
 }
 
 def get_bindep(dep)
@@ -37,7 +40,9 @@ end
 def generate_iss(out_file)
 	iss = IO.read('dist/innosetup/setup.iss') % {
 		base_dir: %Q["#{File.dirname(__FILE__).gsub('\\', '\\\\')}"],
-		rs_name:  %Q["vrtk-#{VRTK::CODENAME}-win32-x86_64"]
+		rs_name:  %Q["vrtk-#{VRTK::CODENAME}-win32-x86_64"],
+		version: VRTK::VERSION,
+		codename: VRTK::CODENAME.split('-').map(&:capitalize).join('')
 	}
 
 	IO.write out_file, iss
@@ -46,13 +51,18 @@ end
 namespace :win32 do
 
 	desc 'Prepare all files to build'
-	task(:prepare => %w(win32:prepare:ruby win32:prepare:executable)) {}
+	task(:prepare => %w(win32:prepare:ruby win32:prepare:executable win32:prepare:cpres)) {}
 	namespace :prepare do
 		task :cpsrc do
 			rm_rf 'pkg/win32/src'
 			mkdir_p 'pkg/win32/src'
 			cp_r 'src', 'pkg/win32/src/'
 			cp_r 'bin', 'pkg/win32/src/'
+		end
+
+		task :cpres do
+			rm_rf 'pkg/win32/data'
+			cp_r 'data', 'pkg/win32/'
 		end
 
 		desc 'Update sources, do not touch binaries'
@@ -63,7 +73,7 @@ namespace :win32 do
 			idir = nil
 
 			cd 'bin' do
-				command = 'ocra --no-enc --debug-extract --gem-minimal --no-lzma vrtk --output vrtk.exe'
+				command = 'ocra --debug-extract --no-lzma vrtk --output vrtk.exe'
 				puts "#{command}"
 
 				system command
@@ -78,7 +88,7 @@ namespace :win32 do
 			end
 
 			mv idir, 'pkg/win32'
-
+			cp_r 'ext/hasher.so', 'pkg/win32/lib/ruby/2.4.0/x64-mingw32/hasher.so'
 		end
 
 		desc 'Create executable file for current build'
@@ -166,10 +176,19 @@ namespace :win32 do
 			rm_rf 'tmp.iss'
 		end
 
+		desc 'Create all types of build'
+		task :all => [:zip, :inno] {}
+
 		namespace :inno do
+			desc 'Create Inno script for this build'
 			task :generate do
-				generate_iss('generated.iss')
+				generate_iss('pkg/vrtk.iss')
 			end
 		end
 	end
+end
+
+
+task :test1, [:f] => [:environment] do |_, args|
+	p ['t1', args]
 end
