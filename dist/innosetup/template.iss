@@ -1,8 +1,9 @@
 #define MyAppName "VRTK %{codename}"
 #define MyAppVersion "%{version}"
 #define MyAppPublisher "MRAKOBEZE"
-#define BaseDir %{base_dir}
-#define ReleaseName %{rs_name}
+#define PkgDir "%{pkg_dir}"
+#define InputDir "%{input_dir}"
+#define FileBasename "%{out_file}"
 #define MyAppURL "http://mrakobeze.github.io/vrtk"
 
 [Setup]
@@ -17,10 +18,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf64}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile={#BaseDir}\LICENSE.md
-InfoBeforeFile={#BaseDir}\README.md
-OutputDir={#BaseDir}\pkg
-OutputBaseFilename={#ReleaseName}
+OutputDir={#PkgDir}
+OutputBaseFilename={#FileBasename}
 Compression=lzma
 ChangesEnvironment=yes
 SolidCompression=yes
@@ -31,7 +30,7 @@ Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Files]
-Source: "{#BaseDir}\pkg\win32\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; AfterInstall: AddPath(ExpandConstant('{app}'))
+Source: "{#InputDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; AfterInstall: AddPath(ExpandConstant('{app}'))
 
 [Code]
 

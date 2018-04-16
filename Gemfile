@@ -8,12 +8,5 @@ gem 'mini_magick'
 gem 'colorize'
 gem 'ruby-progressbar'
 gem 'bencode'
-
-group :dev do
-	gem 'rake'
-	gem 'ocra'
-	gem 'rubyzip', require: 'zip'
-
-	require 'uri'
-	require 'net/http'
-end
+gem 'rake'
+gem 'rubyzip', require: 'zip'

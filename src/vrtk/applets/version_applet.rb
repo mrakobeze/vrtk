@@ -1,15 +1,17 @@
-require 'bundler'
-
 require_relative '../../vrtk'
 require_relative '../version'
+require_relative '../utils/ffmpeg'
 require_relative 'base_applet'
 
 require 'ostruct'
 require 'optparse'
 require 'logger'
+require 'mini_magick'
 
 module VRTK::Applets
 	class VersionApplet < BaseApplet
+
+		include VRTK::Utils
 
 		def init_options
 			@pa = false
@@ -34,11 +36,12 @@ module VRTK::Applets
 				'name'     => VRTK::NAME,
 				'version'  => VRTK::VERSION,
 				'codename' => VRTK::CODENAME,
-				'ocra'     => VRTK::OCRA_VERSION,
-				'ffmpeg'   => VRTK::FFMPEG_VERSION,
-				'magick'   => VRTK::MAGICK_VERSION,
+				'ffmpeg'   => ffmpeg_version,
+				'magick'   => magick_version,
 				'license'  => VRTK::LICENSE
 			}
+
+			puts JSON.pretty_unparse obj
 		end
 
 		# noinspection RubyResolve
@@ -47,9 +50,8 @@ module VRTK::Applets
 
 			text << %[#{VRTK::NAME} #{VRTK::VERSION}]
 			text << %[Codename: #{VRTK::CODENAME}]
-			text << %[OCRA version: #{VRTK::OCRA_VERSION || 'no ocra'}]
-			text << %[FFMPEG version: #{VRTK::FFMPEG_VERSION || 'no ffmpeg'}]
-			text << %[ImageMagick version: #{VRTK::MAGICK_VERSION || 'no ImageMagick'}]
+			text << %[FFMPEG version: #{ffmpeg_version}]
+			text << %[ImageMagick version: #{magick_version}]
 
 			text << ''
 			text << %q[You can use '-p' option to get output in JSON.]
@@ -74,6 +76,26 @@ module VRTK::Applets
 		end
 
 		private
+
+		def ffmpeg_version
+			ffmpeg = FFMpeg.resolve.ffmpeg
+			`#{ffmpeg} -version`
+				.split(/[\r\n]+/).first
+				.split('Copyright').first
+				.split('version').last
+				.strip
+		end
+
+		def magick_version
+			mogrify = MiniMagick::Tool::Mogrify.new
+			mogrify << '--version'
+
+			mogrify.call
+				.split(/[\r\n]+/).first
+				.split('x64').first
+				.split('ImageMagick').last
+				.strip
+		end
 
 		def disclaimer
 			[

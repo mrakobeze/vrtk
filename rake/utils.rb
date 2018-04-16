@@ -3,10 +3,24 @@ require 'net/http'
 require 'tmpdir'
 require 'fileutils'
 
-require_relative 'beta/utils/zip'
+require_relative 'utils/zip'
 
 module Utils
 	include FileUtils
+
+	def ruby_version
+		rv    = RUBY_VERSION.split('.')
+		rv[2] = '0'
+
+		rv.join '.'
+	end
+
+	def self.ruby_version
+		rv    = RUBY_VERSION.split('.')
+		rv[2] = '0'
+
+		rv.join '.'
+	end
 
 	def download(url, target:)
 		data = ''

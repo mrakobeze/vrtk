@@ -1,0 +1,65 @@
+---
+bindeps:
+- !ruby/struct:BinDep::BinDep
+  name: magick
+  files:
+  - convert.bat
+  - CORE_RL_bzlib_.dll
+  - CORE_RL_cairo_.dll
+  - CORE_RL_exr_.dll
+  - CORE_RL_flif_.dll
+  - CORE_RL_glib_.dll
+  - CORE_RL_jp2_.dll
+  - CORE_RL_jpeg_.dll
+  - CORE_RL_lcms_.dll
+  - CORE_RL_libde265_.dll
+  - CORE_RL_libraw_.dll
+  - CORE_RL_librsvg_.dll
+  - CORE_RL_libxml_.dll
+  - CORE_RL_lqr_.dll
+  - CORE_RL_Magick++_.dll
+  - CORE_RL_MagickCore_.dll
+  - CORE_RL_MagickWand_.dll
+  - CORE_RL_openjpeg_.dll
+  - CORE_RL_pango_.dll
+  - CORE_RL_png_.dll
+  - CORE_RL_tiff_.dll
+  - CORE_RL_ttf_.dll
+  - CORE_RL_webp_.dll
+  - CORE_RL_zlib_.dll
+  - identify.bat
+  - magick.exe
+  - mfc120u.dll
+  - mogrify.bat
+  - montage.bat
+  - msvcp120.dll
+  - msvcr120.dll
+  - vcomp120.dll
+  install_to: bin
+- !ruby/struct:BinDep::BinDep
+  name: ffmpeg
+  files:
+  - avcodec-58.dll
+  - avdevice-58.dll
+  - avfilter-7.dll
+  - avformat-58.dll
+  - avutil-56.dll
+  - ffmpeg.exe
+  - ffprobe.exe
+  - postproc-55.dll
+  - swresample-3.dll
+  - swscale-5.dll
+  install_to: bin
+- !ruby/struct:BinDep::BinDep
+  name: mingw
+  files:
+  - libgcc_s_seh-1.dll
+  - libstdc++-6.dll
+  - libwinpthread-1.dll
+  install_to: bin
+- !ruby/struct:BinDep::BinDep
+  name: ruby
+  files:
+  - bin
+  - lib
+  install_to: ''

@@ -1,8 +1,11 @@
 t.mov
 .idea/
 pkg/
-dist/ffmpeg
-dist/magick
-dist/mingw
+dist/bindeps/ffmpeg
+dist/bindeps/ruby
+dist/bindeps/magick
+dist/bindeps/mingw
 fastcode/
 rake/beta
+vendor
+.bundle
