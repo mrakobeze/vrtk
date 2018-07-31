@@ -1,3 +1,5 @@
+require_relative '../../src/vrtk/version'
+
 module Inno
 
 	class InnoError < Exception;
@@ -10,7 +12,8 @@ module Inno
 		end
 
 		def generate(to, bind:)
-			tpl = IO.read(@file).strip % bind
+			bind[:codename] = beautify_codename bind[:codename] || VRTK::CODENAME
+			tpl             = IO.read(@file).strip % bind
 
 			IO.write to, tpl
 		end

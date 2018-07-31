@@ -10,7 +10,7 @@ module Packager
 
 		def initialize(rake: FileUtils)
 			@files = []
-			@rake = rake
+			@rake  = rake
 		end
 
 		def install_gems
@@ -31,26 +31,9 @@ module Packager
 		end
 
 		def fetch_files
-			dir = Dir.mktmpdir(%w(VRTK.Build-- --gem_resolver))
+			# dir = Dir.mktmpdir(%w(VRTK.Build-- --gem_resolver))
 
-			@rake.cp_r 'vendor/bundle', dir
-
-			@rake.cd "#{dir}/bundle/ruby" do
-				@rake.cd "#{Dir['*'].first}/gems" do
-					@files = Dir['*']
-						         .select do |gem|
-						want = true
-						UNWANTED_GEMS.each do |excl|
-							if gem.strip.start_with? excl
-								want = false
-								break
-							end
-						end
-
-						want
-					end.map { |v| File.absolute_path v }
-				end
-			end
+			@files = [File.absolute_path('vendor/bundle')]
 		end
 	end
 end

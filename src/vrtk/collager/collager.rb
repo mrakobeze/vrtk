@@ -2,6 +2,7 @@ require_relative '../../vrtk'
 require_relative '../utils/utils'
 
 require 'ostruct'
+require 'digest'
 require 'logger'
 require 'ruby-progressbar'
 require 'mini_magick'

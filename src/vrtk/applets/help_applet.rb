@@ -1,5 +1,3 @@
-require 'bundler'
-
 require_relative '../../vrtk'
 require_relative 'base_applet'
 

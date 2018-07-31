@@ -28,8 +28,9 @@ class RakeDSL
 	end
 end
 
-logger           = Logger.new STDERR
-logger.formatter = proc do |severity, _, _, msg|
+logger               = Logger.new STDERR
+logger.sev_threshold = 'DEBUG'
+logger.formatter     = proc do |severity, _, _, msg|
 	color = case (severity)
 		        when 'DEBUG'
 			        :green
@@ -57,6 +58,12 @@ packager.create_tasks
 namespace :windows do
 	desc 'Remove all built files'
 	task :clean do
-		rm_rf 'pkg'
+		rm_rf Buil
+	end
+
+	task :install do
+		system ''
 	end
 end
+
+task :default => %w(windows:clean windows:package:all)

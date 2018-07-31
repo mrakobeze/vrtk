@@ -15,7 +15,7 @@ module Packager
 		SRC_DIR    = 'ruby'
 		RES_DIR    = 'res'
 		EXT_DIR    = "lib/ruby/#{Utils.ruby_version}/x64-mingw32"
-		BUNDLE_DIR = "lib/ruby/gems/#{Utils.ruby_version}/gems"
+		BUNDLE_DIR = 'lib/'
 
 		RUBY_DIR     = 'dist/ruby'
 		SRC_DIRS     = %w(bin src)
@@ -176,7 +176,7 @@ module Packager
 
 			@logger.info 'copying gem bundle'
 
-			gems.files.each do |file|
+			(gems.files).each do |file|
 				@logger.debug "copying #{File.basename(file)}"
 
 				cp_r file, "#{OUTPUT_DIR}/#{BUNDLE_DIR}"

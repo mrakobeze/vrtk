@@ -1,9 +1,14 @@
 #!/usr/bin/env ruby
 
-unless defined?(Ocra).nil?
-	require 'open3'
-	require 'digest'
-	Digest('MD5')
+def clean_path(path)
+	path
+		.gsub(/['"]+/, '')
+		.gsub(/[\/\\]+/, '/')
+end
+
+bundle = File.absolute_path(clean_path("#{ENV['VRTK_DIR']}/lib/bundle/ruby/2.4.0/gems"))
+Dir["#{bundle}/*/lib"].each do |gem|
+	$: << File.realpath(gem)
 end
 
 require_relative '../src/vrtk'
