@@ -3,10 +3,10 @@ GEM
   specs:
     bencode (0.8.2)
     colorize (0.8.1)
-    mini_magick (4.8.0)
-    rake (12.3.1)
-    ruby-progressbar (1.9.0)
-    rubyzip (1.2.1)
+    mini_magick (4.9.5)
+    rake (12.3.2)
+    ruby-progressbar (1.10.1)
+    rubyzip (1.2.3)
 
 PLATFORMS
   x64-mingw32
@@ -20,4 +20,4 @@ DEPENDENCIES
   rubyzip
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
